@@ -1,3 +1,5 @@
+include ':core-domain'
+include ':core-presentation'
 include ':core-data'
 include ':app-favorites'
 include ':app-catlist'
