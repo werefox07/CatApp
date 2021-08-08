@@ -2,6 +2,7 @@ package com.werefox.catapp.app
 
 import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import dagger.Module
 import dagger.Provides
@@ -23,5 +24,11 @@ class ApplicationModule(
     @Provides
     fun provideRouter(): Router {
         return cicerone.router
+    }
+
+    @Singleton
+    @Provides
+    fun provideNavigatorHolder(): NavigatorHolder {
+        return cicerone.getNavigatorHolder()
     }
 }

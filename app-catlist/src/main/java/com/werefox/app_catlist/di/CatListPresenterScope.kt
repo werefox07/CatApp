@@ -1,4 +1,4 @@
-package com.werefox.core_presentation.scope
+package com.werefox.app_catlist.di
 
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -6,4 +6,4 @@ import javax.inject.Scope
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-annotation class MainContainerScope
+annotation class CatListPresenterScope

@@ -4,7 +4,6 @@ import com.github.terrakok.cicerone.Router
 import com.werefox.catapp.app.coordinator.MainPartCoordinator
 import com.werefox.catapp.app.internal.presentation.presenter.MainContainerPresenter
 import com.werefox.catapp.app.output.MainContainerOutput
-import com.werefox.core_presentation.scope.MainContainerScope
 import dagger.Module
 import dagger.Provides
 

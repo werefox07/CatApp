@@ -27,6 +27,7 @@ class AppContext : Application(),
     override fun inject(t: ApplicationComponent) {}
 
     override fun onCreate() {
+        super.onCreate()
         dependencyInitializer.init()
     }
 }
