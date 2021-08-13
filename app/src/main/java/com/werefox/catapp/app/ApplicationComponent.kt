@@ -1,5 +1,6 @@
 package com.werefox.catapp.app
 
+import com.werefox.app_catlist.dependencies.CatListDependencies
 import com.werefox.catapp.app.dependencies.MainContainerDependencies
 import dagger.Component
 import javax.inject.Singleton
@@ -15,6 +16,6 @@ import javax.inject.Singleton
     ]
 )
 
-interface ApplicationComponent : MainContainerDependencies {
-
+interface ApplicationComponent : MainContainerDependencies,
+    CatListDependencies {
 }

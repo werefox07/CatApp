@@ -51,6 +51,7 @@ dependencies {
     implementation project(':core-presentation')
     implementation project(':core-domain')
     implementation project(':app-catlist')
+    implementation project(':core-data')
 
     //MVP
     implementation 'tech.schoolhelper:moxy-x:1.7.0'

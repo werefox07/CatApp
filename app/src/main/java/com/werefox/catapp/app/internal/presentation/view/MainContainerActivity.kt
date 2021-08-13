@@ -1,6 +1,7 @@
 package com.werefox.catapp.app.internal.presentation.view
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -40,6 +41,7 @@ class MainContainerActivity : MvpAppCompatActivity(), MainContainerView,
     //region ===================== Lifecycle ======================
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         inject(provideComponent())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

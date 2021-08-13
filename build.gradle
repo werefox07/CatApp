@@ -19,6 +19,18 @@ allprojects {
         google()
         jcenter()
     }
+
+    subprojects {
+        afterEvaluate {project ->
+            if (project.hasProperty("android")) {
+                android {
+                    buildFeatures {
+                        viewBinding true
+                    }
+                }
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {

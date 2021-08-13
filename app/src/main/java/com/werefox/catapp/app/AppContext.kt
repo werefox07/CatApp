@@ -1,14 +1,12 @@
 package com.werefox.catapp.app
 
 import android.app.Application
+import com.werefox.core_data.network.CatsApi
 import com.werefox.core_domain.manager.ComponentOwner
 
 class AppContext : Application(),
     LifeCycleHandlerRegistrartor,
     ComponentOwner<ApplicationComponent> {
-
-    private val dependencyInitializer: DependencyInitializer =
-        DependencyInitializer(this)
 
     override fun registerLifeCycleHandler(callback: ActivityLifecycleCallbacks) {
         registerActivityLifecycleCallbacks(callback)
@@ -28,6 +26,6 @@ class AppContext : Application(),
 
     override fun onCreate() {
         super.onCreate()
-        dependencyInitializer.init()
+        CatsApi.initService()
     }
 }
