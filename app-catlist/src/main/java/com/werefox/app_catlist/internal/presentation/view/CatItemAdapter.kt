@@ -4,10 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.werefox.app_catlist.R
 import com.werefox.app_catlist.databinding.ItemCatBinding
 import com.werefox.core_domain.entity.CatEntity
+import com.werefox.core_domain.uihelper.ResourceManager
 
-class CatItemAdapter(/*val resourceManager: ResourceManager*/) :
+class CatItemAdapter(
+    val actionListener: CatItemActionListener,
+    val resourceManager: ResourceManager,
+) :
     RecyclerView.Adapter<CatItemAdapter.ViewHolder>() {
 
     class ViewHolder(val viewBinding: ItemCatBinding) :
@@ -29,14 +34,20 @@ class CatItemAdapter(/*val resourceManager: ResourceManager*/) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.viewBinding) {
             val catItem = models[position]
-            tvCategory.text = catItem.id
+            var text = "${resourceManager.getString(R.string.cat_item_title)} ${catItem.id}"
             catItem.breeds?.let { breeds ->
                 if (breeds.isNotEmpty()) {
-                    tvCategory.text =
-                        breeds.first() //todo 1 - выводить строку, разобраться с отстутвующим полем и ошибкой
+                    text =
+                        "${resourceManager.getString(R.string.cat_item_title)} ${breeds.first()}" //todo - заменить лучше на категории, добавить обработку отсутствующих полей
                 }
             }
+            tvCategory.text = text
             Picasso.get().load(catItem.url).into(imageCatItem)
+            btnAddToFavorite.setOnClickListener { actionListener.onClickAddToFavorite(catItem.url) }
+            btnSave.setOnClickListener {
+                actionListener.onClickSave(imageCatItem.drawable,
+                    catItem.id)
+            }
         }
     }
 
