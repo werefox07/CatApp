@@ -1,9 +1,9 @@
 package com.werefox.catapp.app.internal.presentation.presenter
 
-import com.arellomobile.mvp.InjectViewState
 import com.werefox.catapp.app.internal.presentation.view.MainContainerView
 import com.werefox.catapp.app.output.MainContainerOutput
 import com.werefox.core_presentation.presenter.BaseDisposablePresenter
+import moxy.InjectViewState
 
 @InjectViewState
 class MainContainerPresenter(

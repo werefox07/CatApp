@@ -2,9 +2,6 @@ package com.werefox.catapp.app.internal.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -14,7 +11,10 @@ import com.werefox.catapp.app.di.DaggerMainContainerComponent
 import com.werefox.catapp.app.di.MainContainerComponent
 import com.werefox.catapp.app.di.MainContainerModule
 import com.werefox.catapp.app.internal.presentation.presenter.MainContainerPresenter
-import com.werefox.core_domain.manager.ComponentOwner
+import com.werefox.core_domain.di.ComponentOwner
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -64,7 +64,7 @@ class MainContainerActivity : MvpAppCompatActivity(), MainContainerView,
     override fun provideComponent(): MainContainerComponent {
         return DaggerMainContainerComponent.builder()
             .mainContainerModule(MainContainerModule())
-            .mainContainerDependencies((application as AppContext).provideComponent())
+            .mainContainerDependencies((application as AppContext).appComponent())
             .build()
     }
 

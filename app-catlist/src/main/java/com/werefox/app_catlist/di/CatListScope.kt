@@ -6,4 +6,4 @@ import javax.inject.Scope
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-annotation class CatListPresenterScope
+annotation class CatListScope

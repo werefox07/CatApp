@@ -4,40 +4,41 @@ import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
-import com.werefox.core_data.network.CatsApiService
+import com.werefox.core_data.mapper.CatToEntityCatMapper
 import com.werefox.core_data.repositoryImpl.CatRepositoryImpl
 import com.werefox.core_domain.repository.CatRepository
+import com.werefox.core_domain.uihelper.ResourceManager
+import com.werefox.core_presentation.helper.ResourceManagerImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(
-    private val context: Context
-) {
+class ApplicationModule(private val context: Context) {
     private val cicerone = Cicerone.create(Router())
 
     @Singleton
     @Provides
-    fun provideApplicationContext(): Context {
-        return context
-    }
+    fun provideApplicationContext(): Context = context
+
 
     @Singleton
     @Provides
-    fun provideRouter(): Router {
-        return cicerone.router
-    }
+    fun provideRouter(): Router = cicerone.router
 
     @Singleton
     @Provides
-    fun provideNavigatorHolder(): NavigatorHolder {
-        return cicerone.getNavigatorHolder()
-    }
+    fun provideNavigatorHolder(): NavigatorHolder = cicerone.getNavigatorHolder()
+
 
     @Provides
     @Singleton
-    fun provideCatsRepository(): CatRepository {
-        return CatRepositoryImpl()
+    fun provideCatsRepository(catToEntityCatMapper: CatToEntityCatMapper): CatRepository =
+        CatRepositoryImpl(catToEntityCatMapper)
+
+    @Provides
+    @Singleton
+    fun provideResourceManager(context: Context): ResourceManager {
+        return ResourceManagerImpl(context)
     }
 }

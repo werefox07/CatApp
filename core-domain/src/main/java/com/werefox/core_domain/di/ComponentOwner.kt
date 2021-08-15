@@ -1,4 +1,4 @@
-package com.werefox.core_domain.manager
+package com.werefox.core_domain.di
 
 interface ComponentOwner<T> {
 

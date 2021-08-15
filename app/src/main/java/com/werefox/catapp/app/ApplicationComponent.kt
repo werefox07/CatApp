@@ -1,6 +1,6 @@
 package com.werefox.catapp.app
 
-import com.werefox.app_catlist.dependencies.CatListDependencies
+import com.werefox.app_catlist.di.CatListComponent
 import com.werefox.catapp.app.dependencies.MainContainerDependencies
 import dagger.Component
 import javax.inject.Singleton
@@ -10,12 +10,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(
-    modules = [
-        ApplicationModule::class
-    ]
-)
-
-interface ApplicationComponent : MainContainerDependencies,
-    CatListDependencies {
+@Component(modules = [ApplicationModule::class])
+interface ApplicationComponent : MainContainerDependencies {
+    fun catListComponent(): CatListComponent
 }
