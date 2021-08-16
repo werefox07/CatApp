@@ -2,14 +2,16 @@ package com.werefox.feature_favorites.internal.presentation.view
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werefox.core_domain.entity.CatFavoriteEntity
 import com.werefox.core_domain.uihelper.ResourceManager
-import com.werefox.feature_favorites.internal.presentation.presenter.FavoritesPresenter
 import com.werefox.core_presentation.fragment.MvpBaseFragment
 import com.werefox.feature_favorites.R
 import com.werefox.feature_favorites.di.FavoritesComponentProvider
+import com.werefox.feature_favorites.internal.presentation.presenter.FavoritesPresenter
+import kotlinx.android.synthetic.main.fragment_favorites.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
@@ -36,6 +38,7 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
             .provideFavoritesComponent()
             .inject(this)
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -57,6 +60,7 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
         val recyclerCats = view.findViewById<RecyclerView>(R.id.recycler_favorites_cats)
         recyclerCats.adapter = favoriteItemAdapter
         recyclerCats.layoutManager = LinearLayoutManager(requireContext())
+        val pb = view.findViewById<ProgressBar>(R.id.progress_favorites)
     }
 
     private fun initToolbar(view: View) {
@@ -91,6 +95,6 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
     }
 
     override fun hideLoader() {
-//        progressFavorites.visibility = View.GONE
+        progress_favorites.visibility = View.GONE
     }
 }

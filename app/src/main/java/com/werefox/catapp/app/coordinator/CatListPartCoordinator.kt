@@ -7,8 +7,6 @@ import com.werefox.feature_favorites.internal.presentation.view.FavoritesScreen
 class CatListPartCoordinator(private val router: Router) : CatListOutput {
 
     override fun openFavoritesScreen() {
-        router.navigateTo(
-            FavoritesScreen()
-        )
+        router.navigateTo(FavoritesScreen())
     }
 }

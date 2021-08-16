@@ -2,21 +2,23 @@ package com.werefox.feature_catlist.internal.presentation.view
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.werefox.feature_catlist.di.CatListComponentProvider
-import com.werefox.feature_catlist.internal.presentation.presenter.CatListPresenter
 import com.werefox.core_domain.entity.CatEntity
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_presentation.fragment.MvpBaseFragment
+import com.werefox.feature_catlist.R
+import com.werefox.feature_catlist.di.CatListComponentProvider
+import com.werefox.feature_catlist.internal.presentation.presenter.CatListPresenter
 import kotlinx.android.synthetic.main.fragment_catlist.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 import javax.inject.Provider
-import android.view.*
-import com.werefox.feature_catlist.R
 
 
 class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
@@ -40,6 +42,7 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
             .provideCatListComponent()
             .inject(this)
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -56,7 +59,11 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
     }
 
     private fun initUI(view: View) {
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         initToolbar(view)
+        toolbar.inflateMenu(R.menu.menu_cat_list)
         catItemAdapter = CatItemAdapter(this, resourceManager)
         val recyclerCats = view.findViewById<RecyclerView>(R.id.recycler_cats)
         recyclerCats.adapter = catItemAdapter
@@ -73,18 +80,20 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
             null
         )
     }
+    //region ==================== Options menu ====================
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_cat_list, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_cat_list, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.actionMenuFavorites) {
+        if (item.itemId == R.id.action_menu_favorites) {
             presenter.onFavoritesClick()
         }
         return true
     }
+    //endregion
 
     companion object {
         internal fun newInstance(): CatListFragment {

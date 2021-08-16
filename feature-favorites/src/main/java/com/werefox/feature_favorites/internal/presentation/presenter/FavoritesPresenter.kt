@@ -13,7 +13,7 @@ import javax.inject.Inject
 @InjectViewState
 class FavoritesPresenter @Inject constructor(
     private val getFavoritesUseCase: GetFavoritesUseCase,
-//    private val favoritesOutput: FavoritesOutput
+    private val favoritesOutput: FavoritesOutput
 ) :
     BaseDisposablePresenter<FavoritesView>() {
 
@@ -38,6 +38,6 @@ class FavoritesPresenter @Inject constructor(
     }
 
     fun onBackPressed() {
-//        favoritesOutput.onBackPressed()
+        favoritesOutput.onBackPressed()
     }
 }

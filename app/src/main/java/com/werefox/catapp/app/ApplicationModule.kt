@@ -7,7 +7,6 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.werefox.catapp.app.coordinator.CatListPartCoordinator
 import com.werefox.catapp.app.coordinator.FavoritesPartCoordinator
-import com.werefox.catapp.app.coordinator.MainPartCoordinator
 import com.werefox.core_data.database.CatDao
 import com.werefox.core_data.database.CatsDatabase
 import com.werefox.core_data.mapper.CatFavoriteToEntityCatMapper
@@ -16,6 +15,8 @@ import com.werefox.core_data.repositoryImpl.CatRepositoryImpl
 import com.werefox.core_domain.repository.CatRepository
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_presentation.helper.ResourceManagerImpl
+import com.werefox.feature_catlist.output.CatListOutput
+import com.werefox.feature_favorites.output.FavoritesOutput
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -64,16 +65,11 @@ class ApplicationModule(private val context: Context) {
 
     @Singleton
     @Provides
-    internal fun catListPartCoordinator(router: Router): CatListPartCoordinator =
+    internal fun catListPartCoordinator(router: Router): CatListOutput =
         CatListPartCoordinator(router)
 
     @Singleton
     @Provides
-    internal fun mainPartCoordinator(router: Router): MainPartCoordinator =
-        MainPartCoordinator(router)
-
-    @Singleton
-    @Provides
-    internal fun favoritesPartCoordinator(router: Router): FavoritesPartCoordinator =
+    internal fun favoritesPartCoordinator(router: Router): FavoritesOutput =
         FavoritesPartCoordinator(router)
 }

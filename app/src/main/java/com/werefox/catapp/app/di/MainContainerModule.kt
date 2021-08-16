@@ -1,5 +1,6 @@
 package com.werefox.catapp.app.di
 
+import com.github.terrakok.cicerone.Router
 import com.werefox.catapp.app.coordinator.MainPartCoordinator
 import com.werefox.catapp.app.internal.presentation.presenter.MainContainerPresenter
 import com.werefox.catapp.app.output.MainContainerOutput
@@ -18,7 +19,16 @@ class MainContainerModule {
     @MainContainerScope
     @Provides
     internal fun mainContainerOutput(
-        coordinator: MainPartCoordinator,
+        coordinator: MainPartCoordinator
     ): MainContainerOutput =
         coordinator.mainContainerOutput
+
+    @MainContainerScope
+    @Provides
+    internal fun mainPartCoordinator(
+        router: Router
+    ): MainPartCoordinator =
+        MainPartCoordinator(
+            router
+        )
 }

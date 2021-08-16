@@ -30,7 +30,7 @@ class CatListPresenter @Inject constructor(
     private val appContext: Context,
     private val resourceManager: ResourceManager,
     private val saveImageUseCase: SaveImageUseCase,
-//    private val catListOutput: CatListOutput
+    private val catListOutput: CatListOutput
 ) : BaseDisposablePresenter<CatListView>() {
 
     override fun onFirstViewAttach() {
@@ -76,6 +76,6 @@ class CatListPresenter @Inject constructor(
     }
 
     fun onFavoritesClick() {
-//        catListOutput.openFavoritesScreen()
+        catListOutput.openFavoritesScreen()
     }
 }
