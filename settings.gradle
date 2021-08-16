@@ -1,7 +1,7 @@
 include ':core-domain'
 include ':core-presentation'
 include ':core-data'
-include ':app-favorites'
-include ':app-catlist'
+include ':feature-favorites'
+include ':feature-catlist'
 include ':app'
 rootProject.name = "cat-app"

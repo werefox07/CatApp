@@ -1,7 +1,8 @@
 package com.werefox.catapp.app
 
-import com.werefox.app_catlist.di.CatListComponent
+import com.werefox.feature_catlist.di.CatListComponent
 import com.werefox.catapp.app.dependencies.MainContainerDependencies
+import com.werefox.feature_favorites.di.FavoritesComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,4 +14,5 @@ import javax.inject.Singleton
 @Component(modules = [ApplicationModule::class])
 interface ApplicationComponent : MainContainerDependencies {
     fun catListComponent(): CatListComponent
+    fun favoritesComponent(): FavoritesComponent
 }

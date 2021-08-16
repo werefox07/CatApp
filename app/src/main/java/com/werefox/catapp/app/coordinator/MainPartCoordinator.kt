@@ -1,7 +1,7 @@
 package com.werefox.catapp.app.coordinator
 
 import com.github.terrakok.cicerone.Router
-import com.werefox.app_catlist.internal.presentation.view.CatListScreen
+import com.werefox.feature_catlist.internal.presentation.view.CatListScreen
 import com.werefox.catapp.app.output.MainContainerOutput
 import io.reactivex.disposables.CompositeDisposable
 

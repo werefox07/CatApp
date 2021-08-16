@@ -1,11 +1,14 @@
 package com.werefox.catapp.app
 
 import android.app.Application
-import com.werefox.app_catlist.di.CatListComponent
-import com.werefox.app_catlist.di.CatListComponentProvider
+import com.werefox.feature_catlist.di.CatListComponent
+import com.werefox.feature_catlist.di.CatListComponentProvider
 import com.werefox.core_data.network.CatsApi
+import com.werefox.feature_favorites.di.FavoritesComponent
+import com.werefox.feature_favorites.di.FavoritesComponentProvider
 
-class AppContext : Application(), LifeCycleHandlerRegistrartor, CatListComponentProvider {
+class AppContext : Application(), LifeCycleHandlerRegistrartor, CatListComponentProvider,
+    FavoritesComponentProvider {
 
     override fun registerLifeCycleHandler(callback: ActivityLifecycleCallbacks) {
         registerActivityLifecycleCallbacks(callback)
@@ -28,4 +31,5 @@ class AppContext : Application(), LifeCycleHandlerRegistrartor, CatListComponent
 
     override fun provideCatListComponent(): CatListComponent = appComponent().catListComponent()
 
+    override fun provideFavoritesComponent(): FavoritesComponent = appComponent().favoritesComponent()
 }
