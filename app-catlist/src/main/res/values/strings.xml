@@ -6,4 +6,5 @@
     <string name="cat_item_file_extension">.jpg</string>
     <string name="cat_item_file_already_exist">The file already exists!</string>
     <string name="cat_item_title">Title: </string>
+    <string name="cat_item_title_no_category">no category</string>
 </resources>

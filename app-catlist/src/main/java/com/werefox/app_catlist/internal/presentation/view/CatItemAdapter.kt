@@ -34,11 +34,12 @@ class CatItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.viewBinding) {
             val catItem = models[position]
-            var text = "${resourceManager.getString(R.string.cat_item_title)} ${catItem.id}"
-            catItem.breeds?.let { breeds ->
-                if (breeds.isNotEmpty()) {
+            var text =
+                "${resourceManager.getString(R.string.cat_item_title)} ${resourceManager.getString(R.string.cat_item_title_no_category)}"
+            catItem.categories?.let { categories ->
+                if (categories.isNotEmpty()) {
                     text =
-                        "${resourceManager.getString(R.string.cat_item_title)} ${breeds.first()}" //todo - заменить лучше на категории, добавить обработку отсутствующих полей
+                        "${resourceManager.getString(R.string.cat_item_title)} ${categories.first()}"
                 }
             }
             tvCategory.text = text
