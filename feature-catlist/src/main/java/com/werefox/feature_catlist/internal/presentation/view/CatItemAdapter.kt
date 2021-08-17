@@ -61,4 +61,9 @@ class CatItemAdapter(
         this.models.addAll(models)
         notifyDataSetChanged()
     }
+
+    fun add(models: List<CatEntity>) {
+        this.models.addAll(models)
+        notifyDataSetChanged()
+    }
 }

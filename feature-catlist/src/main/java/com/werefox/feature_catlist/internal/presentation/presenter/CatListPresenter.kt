@@ -41,7 +41,22 @@ class CatListPresenter @Inject constructor(
             .subscribe(
                 { catsImages ->
                     viewState.showImages(catsImages)
-                    viewState.hideLoader()
+                    viewState.setLoaderVisibility(false)
+                },
+                Throwable::printStackTrace
+            )
+            .unsubscribeOnDestroy()
+    }
+
+    private fun retryRequestCats() {
+        getCatsUseCase.buildUseCaseSingle(EmptyParams)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { catsImages ->
+                    viewState.addImages(catsImages)
+                    viewState.setLoaderVisibility(false)
+                    viewState.setLoadInProgress(false)
                 },
                 Throwable::printStackTrace
             )
@@ -77,5 +92,10 @@ class CatListPresenter @Inject constructor(
 
     fun onFavoritesClick() {
         catListOutput.openFavoritesScreen()
+    }
+
+    fun onScrolledToBottom() {
+        viewState.setLoaderVisibility(true)
+        retryRequestCats()
     }
 }

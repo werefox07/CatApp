@@ -94,7 +94,21 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
         favoriteItemAdapter.update(favorites)
     }
 
-    override fun hideLoader() {
-        progress_favorites.visibility = View.GONE
+    override fun setVisibilityLoader(visibility: Boolean) {
+        if (visibility) {
+            progress_favorites.visibility = View.VISIBLE
+
+        } else {
+            progress_favorites.visibility = View.GONE
+        }
+    }
+
+    override fun setVisibilityStub(visibility: Boolean) {
+        if (visibility) {
+            tv_stub.visibility = View.VISIBLE
+
+        } else {
+            tv_stub.visibility = View.GONE
+        }
     }
 }

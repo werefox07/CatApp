@@ -10,5 +10,7 @@ interface FavoritesView : MvpView {
 
     fun showFavoriteImages(favorites: List<CatFavoriteEntity>)
 
-    fun hideLoader()
+    fun setVisibilityLoader(visibility: Boolean)
+
+    fun setVisibilityStub(visibility: Boolean)
 }

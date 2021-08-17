@@ -10,7 +10,11 @@ interface CatListView : MvpView {
 
     fun showImages(catEntities: List<CatEntity>)
 
-    fun hideLoader()
+    fun setLoaderVisibility(visibility: Boolean)
+
+    fun setLoadInProgress(value: Boolean)
 
     fun showToast(text: String)
+
+    fun addImages(catEntities: List<CatEntity>)
 }

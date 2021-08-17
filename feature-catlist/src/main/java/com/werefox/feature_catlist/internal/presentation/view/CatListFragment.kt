@@ -37,6 +37,8 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
 
     private lateinit var catItemAdapter: CatItemAdapter
 
+    private var loadInProgress = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity().application as CatListComponentProvider)
             .provideCatListComponent()
@@ -68,6 +70,7 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
         val recyclerCats = view.findViewById<RecyclerView>(R.id.recycler_cats)
         recyclerCats.adapter = catItemAdapter
         recyclerCats.layoutManager = LinearLayoutManager(requireContext())
+        recyclerCats.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
     private fun initToolbar(view: View) {
@@ -116,12 +119,48 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
 
     //endregion
 
+    //region ==================== UI handlers ====================
+
+    private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val itemCount = catItemAdapter.itemCount
+
+            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && itemCount > 0 && !loadInProgress) {
+                loadInProgress = true
+                presenter.onScrolledToBottom()
+            }
+        }
+    }
+    //endregion
+
     override fun showImages(catEntities: List<CatEntity>) {
         catItemAdapter.update(catEntities)
     }
 
-    override fun hideLoader() {
-        progress.visibility = View.GONE
+    override fun addImages(catEntities: List<CatEntity>) {
+        catItemAdapter.add(catEntities)
+    }
+
+    override fun setLoaderVisibility(visibility: Boolean) {
+        if (visibility) {
+            progress.visibility = View.VISIBLE
+        } else {
+            progress.visibility = View.GONE
+        }
+    }
+
+    override fun setLoadInProgress(value: Boolean) {
+        loadInProgress = value
     }
 
     override fun showToast(text: String) {
