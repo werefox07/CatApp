@@ -26,16 +26,18 @@ class CatRepositoryImpl @Inject constructor(
     }
 
     override fun addCatToFavourite(cat: CatEntity, title: String): Completable {
-        return Completable.create { emitter: CompletableEmitter ->
+        return Completable.create {
             catDao.saveCatToFavorite(CatFavorite(cat.id, cat.url, title))
-            emitter.onComplete()
-        }
+            it.onComplete()
+        }.doOnError { it.printStackTrace() }
+            .doFinally { println("TESTTAG COMPLETE") }
     }
 
     override fun getCatsFromFavourite(): Single<List<CatFavoriteEntity>> {
         return Single.create { emitter: SingleEmitter<List<CatFavoriteEntity>> ->
             emitter.onSuccess(catDao.getCatsFromFavourite()
                 .map { catFavoriteToEntityCatMapper.map(it) })
-        }
+        }.doOnError { it.printStackTrace() }
+            .doFinally { println("TESTTAG SINGLE") }
     }
 }

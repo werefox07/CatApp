@@ -26,7 +26,10 @@ class FavoritesPresenter @Inject constructor(
                 { favorites ->
                     viewState.showFavoriteImages(favorites)
                     viewState.setVisibilityLoader(false)
-                    viewState.setVisibilityStub(false)
+                    if (favorites.isEmpty()) {
+                        viewState.setVisibilityStub(true)
+
+                    }
                 },
                 Throwable::printStackTrace
             )

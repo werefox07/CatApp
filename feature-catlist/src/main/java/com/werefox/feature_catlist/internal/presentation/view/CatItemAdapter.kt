@@ -44,10 +44,11 @@ class CatItemAdapter(
             }
             tvCategory.text = text
             Picasso.get().load(catItem.url).into(imageCatItem)
-            btnAddToFavorite.setOnClickListener { actionListener.onClickAddToFavorite(catItem, text) }
+            btnAddToFavorite.setOnClickListener {
+                actionListener.onClickAddToFavorite(catItem, text)
+            }
             btnSave.setOnClickListener {
-                actionListener.onClickSave(imageCatItem.drawable,
-                    catItem.id)
+                actionListener.onClickSave(imageCatItem.drawable, catItem.id)
             }
         }
     }
