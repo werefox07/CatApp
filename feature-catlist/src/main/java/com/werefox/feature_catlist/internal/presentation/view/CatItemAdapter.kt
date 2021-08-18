@@ -10,8 +10,8 @@ import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.feature_catlist.R
 
 class CatItemAdapter(
-    val actionListener: CatItemActionListener,
-    val resourceManager: ResourceManager,
+    private val actionListener: CatItemActionListener,
+    private val resourceManager: ResourceManager,
 ) :
     RecyclerView.Adapter<CatItemAdapter.ViewHolder>() {
 
@@ -34,21 +34,21 @@ class CatItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.viewBinding) {
             val catItem = models[position]
-            var text =
-                "${resourceManager.getString(R.string.category_title)} ${resourceManager.getString(R.string.cat_item_title_no_category)}"
+            var categoryText =
+                resourceManager.getString(R.string.cat_item_title_no_category)
             catItem.categories?.let { categories ->
                 if (categories.isNotEmpty()) {
-                    text =
-                        "${resourceManager.getString(R.string.category_title)} ${categories.first()}"
+                    categoryText = categories.first()
                 }
             }
+            val text = "${resourceManager.getString(R.string.category_title)} $categoryText"
             tvCategory.text = text
             Picasso.get().load(catItem.url).into(imageCatItem)
             btnAddToFavorite.setOnClickListener {
                 actionListener.onClickAddToFavorite(catItem, text)
             }
-            btnSave.setOnClickListener {
-                actionListener.onClickSave(imageCatItem.drawable, catItem.id)
+            btnDownload.setOnClickListener {
+                actionListener.onClickDownloadImage(imageCatItem.drawable, categoryText)
             }
         }
     }

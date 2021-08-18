@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="cat_item_no_breed">No breed</string>
-    <string name="cat_item_save_image">Save</string>
+    <string name="cat_item_download_image">Download</string>
     <string name="cat_item_add_to_favorite">Like</string>
     <string name="cat_item_file_extension">.jpg</string>
     <string name="cat_item_file_already_exist">The file already exists!</string>

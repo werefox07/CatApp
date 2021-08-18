@@ -130,7 +130,7 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
     }
     //region ==================== UI event ====================
 
-    override fun onClickSave(drawable: Drawable, id: String) {
+    override fun onClickDownloadImage(drawable: Drawable, id: String) {
         presenter.saveImageToExternalStorage(drawable, id)
     }
 

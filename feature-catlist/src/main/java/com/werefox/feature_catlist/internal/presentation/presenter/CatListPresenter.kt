@@ -69,6 +69,8 @@ class CatListPresenter @Inject constructor(
 
     fun addToFavorite(cat: CatEntity, title: String) {
         saveImageUseCase.buildUseCaseCompletable(Pair(cat, title))
+            .subscribeOn(Schedulers.io())
+            .subscribe({}, { it.printStackTrace() })
     }
 
     fun saveImageToExternalStorage(drawable: Drawable, id: String) {

@@ -57,6 +57,14 @@ class MainContainerActivity : MvpAppCompatActivity(), MainContainerView,
         navigatorHolder.removeNavigator()
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            super.onBackPressed()
+        } else {
+            finish()
+        }
+    }
+
     //endregion
 
     //region ===================== DI ======================

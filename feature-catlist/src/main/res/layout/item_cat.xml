@@ -21,6 +21,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/default_margin"
         android:scaleType="centerCrop"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
@@ -29,16 +30,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cat_item_add_to_favorite"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="@dimen/default_margin"
         app:layout_constraintStart_toEndOf="@+id/image_cat_item"
+        android:drawableRight="@drawable/ic_star"
         app:layout_constraintTop_toTopOf="@id/image_cat_item" />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/cat_item_save_image"
+        android:text="@string/cat_item_download_image"
         app:layout_constraintStart_toStartOf="@+id/btn_add_to_favorite"
         app:layout_constraintTop_toBottomOf="@+id/btn_add_to_favorite" />
 

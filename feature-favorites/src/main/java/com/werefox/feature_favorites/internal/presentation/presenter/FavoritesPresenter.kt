@@ -13,7 +13,7 @@ import javax.inject.Inject
 @InjectViewState
 class FavoritesPresenter @Inject constructor(
     private val getFavoritesUseCase: GetFavoritesUseCase,
-    private val favoritesOutput: FavoritesOutput
+    private val favoritesOutput: FavoritesOutput,
 ) :
     BaseDisposablePresenter<FavoritesView>() {
 
@@ -30,9 +30,10 @@ class FavoritesPresenter @Inject constructor(
                         viewState.setVisibilityStub(true)
 
                     }
-                },
-                Throwable::printStackTrace
-            )
+                }
+            ) {
+                it.printStackTrace()
+            }
             .unsubscribeOnDestroy()
 
     }

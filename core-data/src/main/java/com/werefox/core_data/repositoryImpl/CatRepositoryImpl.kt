@@ -9,9 +9,7 @@ import com.werefox.core_domain.entity.CatEntity
 import com.werefox.core_domain.entity.CatFavoriteEntity
 import com.werefox.core_domain.repository.CatRepository
 import io.reactivex.Completable
-import io.reactivex.CompletableEmitter
 import io.reactivex.Single
-import io.reactivex.SingleEmitter
 import javax.inject.Inject
 
 class CatRepositoryImpl @Inject constructor(
@@ -25,19 +23,11 @@ class CatRepositoryImpl @Inject constructor(
             .map { it.map { obj -> catResponseToEntityCatMapper.map(obj) } }
     }
 
-    override fun addCatToFavourite(cat: CatEntity, title: String): Completable {
-        return Completable.create {
-            catDao.saveCatToFavorite(CatFavorite(cat.id, cat.url, title))
-            it.onComplete()
-        }.doOnError { it.printStackTrace() }
-            .doFinally { println("TESTTAG COMPLETE") }
-    }
+    override fun addCatToFavourite(cat: CatEntity, title: String): Completable =
+        catDao.saveCatToFavorite(CatFavorite(cat.id, cat.url, title))
 
-    override fun getCatsFromFavourite(): Single<List<CatFavoriteEntity>> {
-        return Single.create { emitter: SingleEmitter<List<CatFavoriteEntity>> ->
-            emitter.onSuccess(catDao.getCatsFromFavourite()
-                .map { catFavoriteToEntityCatMapper.map(it) })
-        }.doOnError { it.printStackTrace() }
-            .doFinally { println("TESTTAG SINGLE") }
-    }
+
+    override fun getCatsFromFavourite(): Single<List<CatFavoriteEntity>> =
+        catDao.getCatsFromFavourite()
+            .map { list -> list.map { element -> catFavoriteToEntityCatMapper.map(element) } }
 }
