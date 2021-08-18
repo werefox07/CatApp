@@ -23,7 +23,10 @@ import javax.inject.Singleton
 
 @Module
 class ApplicationModule(private val context: Context) {
-    private val cicerone = Cicerone.create(Router())
+
+    @Singleton
+    @Provides
+    fun provideCicerone(): Cicerone<Router> = Cicerone.create()
 
     @Singleton
     @Provides
@@ -32,12 +35,12 @@ class ApplicationModule(private val context: Context) {
 
     @Singleton
     @Provides
-    fun provideRouter(): Router = cicerone.router
+    fun provideRouter(cicerone: Cicerone<Router>): Router = cicerone.router
 
     @Singleton
     @Provides
-    fun provideNavigatorHolder(): NavigatorHolder = cicerone.getNavigatorHolder()
-
+    fun provideNavigatorHolder(cicerone: Cicerone<Router>): NavigatorHolder =
+        cicerone.getNavigatorHolder()
 
     @Provides
     @Singleton

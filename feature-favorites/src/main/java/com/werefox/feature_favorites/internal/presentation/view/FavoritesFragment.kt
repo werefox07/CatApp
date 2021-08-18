@@ -34,12 +34,12 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
     @Inject
     internal lateinit var resourceManager: ResourceManager
 
-    @Inject
-    internal lateinit var navigatorHolder: NavigatorHolder
+//    @Inject
+//    internal lateinit var navigatorHolder: NavigatorHolder
 
-    private val navigator: Navigator by lazy {
-        AppNavigator(requireActivity(), R.id.fragment_root_container)
-    }
+//    private val navigator: Navigator by lazy {
+//        AppNavigator(requireActivity(), R.id.fragment_root_container)
+//    }
 
     private lateinit var favoriteItemAdapter: FavoriteItemAdapter
 
@@ -94,16 +94,16 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        navigatorHolder.setNavigator(navigator)
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        navigatorHolder.removeNavigator()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        navigatorHolder.setNavigator(navigator)
+//
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        navigatorHolder.removeNavigator()
+//    }
 
     //region ==================== UI handlers ====================
 

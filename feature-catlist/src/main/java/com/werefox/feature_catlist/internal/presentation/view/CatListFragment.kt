@@ -38,12 +38,12 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
     @Inject
     internal lateinit var resourceManager: ResourceManager
 
-    @Inject
-    internal lateinit var navigatorHolder: NavigatorHolder
+//    @Inject
+//    internal lateinit var navigatorHolder: NavigatorHolder
 
-    private val navigator: Navigator by lazy {
-        AppNavigator(requireActivity(), R.id.fragment_root_container)
-    }
+//    private val navigator: Navigator by lazy {
+//        AppNavigator(requireActivity(), R.id.fragment_root_container)
+//    }
 
     private lateinit var catItemAdapter: CatItemAdapter
 
@@ -70,16 +70,16 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
         initUI(view)
     }
 
-    override fun onResume() {
-        super.onResume()
-        navigatorHolder.setNavigator(navigator)
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        navigatorHolder.removeNavigator()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        navigatorHolder.setNavigator(navigator)
+//
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        navigatorHolder.removeNavigator()
+//    }
 
     private fun initUI(view: View) {
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
