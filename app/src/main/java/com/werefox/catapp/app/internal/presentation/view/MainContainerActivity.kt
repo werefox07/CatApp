@@ -72,7 +72,7 @@ class MainContainerActivity : MvpAppCompatActivity(), MainContainerView,
     override fun provideComponent(): MainContainerComponent {
         return DaggerMainContainerComponent.builder()
             .mainContainerModule(MainContainerModule())
-            .mainContainerDependencies((application as AppContext).appComponent())
+            .mainContainerDependencies((application as AppContext).getAppComponent())
             .build()
     }
 

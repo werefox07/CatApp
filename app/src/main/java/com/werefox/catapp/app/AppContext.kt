@@ -10,26 +10,29 @@ import com.werefox.feature_favorites.di.FavoritesComponentProvider
 class AppContext : Application(), LifeCycleHandlerRegistrartor, CatListComponentProvider,
     FavoritesComponentProvider {
 
+    private lateinit var applicationComponent: ApplicationComponent
+
     override fun registerLifeCycleHandler(callback: ActivityLifecycleCallbacks) {
         registerActivityLifecycleCallbacks(callback)
     }
 
-    fun appComponent(): ApplicationComponent {
-        return DaggerApplicationComponent.builder()
+    fun getAppComponent(): ApplicationComponent {
+        return applicationComponent
+    }
+
+    override fun onCreate() {
+        applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(
                 ApplicationModule(
                     this
                 )
             )
             .build()
-    }
-
-    override fun onCreate() {
         super.onCreate()
         CatsApi.initService()
     }
 
-    override fun provideCatListComponent(): CatListComponent = appComponent().catListComponent()
+    override fun provideCatListComponent(): CatListComponent = getAppComponent().catListComponent()
 
-    override fun provideFavoritesComponent(): FavoritesComponent = appComponent().favoritesComponent()
+    override fun provideFavoritesComponent(): FavoritesComponent = getAppComponent().favoritesComponent()
 }

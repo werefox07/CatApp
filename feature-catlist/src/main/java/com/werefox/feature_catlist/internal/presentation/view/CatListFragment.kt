@@ -8,9 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.werefox.core_domain.entity.CatEntity
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_presentation.fragment.MvpBaseFragment
@@ -38,13 +35,6 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
     @Inject
     internal lateinit var resourceManager: ResourceManager
 
-//    @Inject
-//    internal lateinit var navigatorHolder: NavigatorHolder
-
-//    private val navigator: Navigator by lazy {
-//        AppNavigator(requireActivity(), R.id.fragment_root_container)
-//    }
-
     private lateinit var catItemAdapter: CatItemAdapter
 
     private var loadInProgress = false
@@ -69,17 +59,6 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
         super.onViewCreated(view, savedInstanceState)
         initUI(view)
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        navigatorHolder.setNavigator(navigator)
-//
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        navigatorHolder.removeNavigator()
-//    }
 
     private fun initUI(view: View) {
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)

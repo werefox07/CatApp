@@ -1,13 +1,12 @@
 package com.werefox.feature_favorites.internal.presentation.view
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.werefox.core_domain.entity.CatFavoriteEntity
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_presentation.fragment.MvpBaseFragment
@@ -33,13 +32,6 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
 
     @Inject
     internal lateinit var resourceManager: ResourceManager
-
-//    @Inject
-//    internal lateinit var navigatorHolder: NavigatorHolder
-
-//    private val navigator: Navigator by lazy {
-//        AppNavigator(requireActivity(), R.id.fragment_root_container)
-//    }
 
     private lateinit var favoriteItemAdapter: FavoriteItemAdapter
 
@@ -93,17 +85,6 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
             return fragment
         }
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        navigatorHolder.setNavigator(navigator)
-//
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        navigatorHolder.removeNavigator()
-//    }
 
     //region ==================== UI handlers ====================
 
