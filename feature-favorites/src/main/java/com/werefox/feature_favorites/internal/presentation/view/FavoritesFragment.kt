@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.werefox.core_domain.entity.CatFavoriteEntity
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_presentation.fragment.MvpBaseFragment
@@ -59,10 +57,8 @@ class FavoritesFragment : MvpBaseFragment(), FavoritesView {
     private fun initUI(view: View) {
         initToolbar(view)
         favoriteItemAdapter = FavoriteItemAdapter(resourceManager)
-        val recyclerCats = view.findViewById<RecyclerView>(R.id.recycler_favorites_cats)
-        recyclerCats.adapter = favoriteItemAdapter
-        recyclerCats.layoutManager = LinearLayoutManager(requireContext())
-        val pb = view.findViewById<ProgressBar>(R.id.progress_favorites)
+        recycler_favorites_cats.adapter = favoriteItemAdapter
+        recycler_favorites_cats.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun initToolbar(view: View) {

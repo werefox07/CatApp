@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.werefox.core_domain.entity.CatEntity
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_presentation.fragment.MvpBaseFragment
@@ -34,6 +35,9 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
 
     @Inject
     internal lateinit var resourceManager: ResourceManager
+
+    @Inject
+    internal lateinit var picasso: Picasso
 
     private lateinit var catItemAdapter: CatItemAdapter
 
@@ -66,11 +70,10 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         initToolbar(view)
         toolbar.inflateMenu(R.menu.menu_cat_list)
-        catItemAdapter = CatItemAdapter(this, resourceManager)
-        val recyclerCats = view.findViewById<RecyclerView>(R.id.recycler_cats)
-        recyclerCats.adapter = catItemAdapter
-        recyclerCats.layoutManager = LinearLayoutManager(requireContext())
-        recyclerCats.addOnScrollListener(recyclerViewOnScrollListener)
+        catItemAdapter = CatItemAdapter(this, resourceManager, picasso)
+        recycler_cats.adapter = catItemAdapter
+        recycler_cats.layoutManager = LinearLayoutManager(requireContext())
+        recycler_cats.addOnScrollListener(recyclerViewOnScrollListener)
     }
 
     private fun initToolbar(view: View) {
@@ -109,8 +112,12 @@ class CatListFragment : MvpBaseFragment(), CatListView, CatItemActionListener {
     }
     //region ==================== UI event ====================
 
-    override fun onClickDownloadImage(drawable: Drawable, id: String) {
-        presenter.saveImageToExternalStorage(drawable, id)
+    override fun onClickDownloadImage(drawable: Drawable?, id: String) {
+        drawable?.let {
+            presenter.saveImageToExternalStorage(it, id)
+        } ?: run {
+            showToast(resourceManager.getString(R.string.cat_item_image_not_load))
+        }
     }
 
     override fun onClickAddToFavorite(cat: CatEntity, title: String) {

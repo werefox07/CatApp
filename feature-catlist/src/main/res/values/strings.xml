@@ -8,4 +8,5 @@
     <string name="fragment_catlist_toolbar_title">Cats</string>
     <string name="cat_item_title_no_category">no category</string>
     <string name="cat_item_title_favorites">Favorites</string>
+    <string name="cat_item_image_not_load">Image not loaded. Please, wait.</string>
 </resources>

@@ -38,10 +38,6 @@ class FavoritesPresenter @Inject constructor(
 
     }
 
-    override fun attachView(view: FavoritesView?) {
-        super.attachView(view)
-    }
-
     fun onBackPressed() {
         favoritesOutput.onBackPressed()
     }

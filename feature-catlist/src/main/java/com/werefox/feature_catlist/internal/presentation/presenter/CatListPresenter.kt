@@ -1,19 +1,17 @@
 package com.werefox.feature_catlist.internal.presentation.presenter
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.os.Environment
-import com.werefox.feature_catlist.R
-import com.werefox.feature_catlist.internal.presentation.view.CatListView
-import com.werefox.feature_catlist.output.CatListOutput
 import com.werefox.core_domain.entity.CatEntity
 import com.werefox.core_domain.interactor.EmptyParams
 import com.werefox.core_domain.uihelper.ResourceManager
 import com.werefox.core_domain.usecase.GetCatsUseCase
 import com.werefox.core_domain.usecase.SaveImageUseCase
 import com.werefox.core_presentation.presenter.BaseDisposablePresenter
+import com.werefox.feature_catlist.R
+import com.werefox.feature_catlist.internal.presentation.view.CatListView
+import com.werefox.feature_catlist.output.CatListOutput
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -27,10 +25,10 @@ import javax.inject.Inject
 @InjectViewState
 class CatListPresenter @Inject constructor(
     private val getCatsUseCase: GetCatsUseCase,
-    private val appContext: Context,
     private val resourceManager: ResourceManager,
     private val saveImageUseCase: SaveImageUseCase,
-    private val catListOutput: CatListOutput
+    private val catListOutput: CatListOutput,
+    private val filePath: File?
 ) : BaseDisposablePresenter<CatListView>() {
 
     override fun onFirstViewAttach() {
@@ -75,7 +73,6 @@ class CatListPresenter @Inject constructor(
 
     fun saveImageToExternalStorage(drawable: Drawable, id: String) {
         val bitmap = (drawable as BitmapDrawable).bitmap
-        val filePath = appContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         val fileName = "$id${resourceManager.getString(R.string.cat_item_file_extension)}"
         val file = File(filePath, fileName)
         if (!file.exists()) {

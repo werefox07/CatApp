@@ -4,7 +4,7 @@ import com.werefox.core_data.database.CatDao
 import com.werefox.core_data.database.entity.CatFavorite
 import com.werefox.core_data.mapper.CatFavoriteToEntityCatMapper
 import com.werefox.core_data.mapper.CatResponseToEntityCatMapper
-import com.werefox.core_data.network.CatsApi
+import com.werefox.core_data.network.CatsApiService
 import com.werefox.core_domain.entity.CatEntity
 import com.werefox.core_domain.entity.CatFavoriteEntity
 import com.werefox.core_domain.repository.CatRepository
@@ -16,11 +16,12 @@ class CatRepositoryImpl @Inject constructor(
     private val catResponseToEntityCatMapper: CatResponseToEntityCatMapper,
     private val catFavoriteToEntityCatMapper: CatFavoriteToEntityCatMapper,
     private val catDao: CatDao,
+    private val catsApiService: CatsApiService
 ) : CatRepository {
 
     override fun getRemoteCats(): Single<List<CatEntity>> {
-        return CatsApi.service.getImages()
-            .map { it.map { obj -> catResponseToEntityCatMapper.map(obj) } }
+        return catsApiService.getImages()
+            .map { list -> list.map { element -> catResponseToEntityCatMapper.map(element) } }
     }
 
     override fun addCatToFavourite(cat: CatEntity, title: String): Completable =

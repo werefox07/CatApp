@@ -29,7 +29,6 @@ class AppContext : Application(), LifeCycleHandlerRegistrartor, CatListComponent
             )
             .build()
         super.onCreate()
-        CatsApi.initService()
     }
 
     override fun provideCatListComponent(): CatListComponent = getAppComponent().catListComponent()

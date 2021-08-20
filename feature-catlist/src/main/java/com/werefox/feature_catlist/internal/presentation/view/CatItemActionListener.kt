@@ -5,7 +5,7 @@ import com.werefox.core_domain.entity.CatEntity
 
 interface CatItemActionListener {
 
-    fun onClickDownloadImage(drawable: Drawable, id: String)
+    fun onClickDownloadImage(drawable: Drawable?, id: String)
 
     fun onClickAddToFavorite(cat: CatEntity, title: String)
 }

@@ -11,6 +11,9 @@ import com.werefox.core_data.database.CatDao
 import com.werefox.core_data.database.CatsDatabase
 import com.werefox.core_data.mapper.CatFavoriteToEntityCatMapper
 import com.werefox.core_data.mapper.CatResponseToEntityCatMapper
+import com.werefox.core_data.network.CatsApi.API_URL
+import com.werefox.core_data.network.CatsApiService
+import com.werefox.core_data.network.OkHttpClientFactory
 import com.werefox.core_data.repositoryImpl.CatRepositoryImpl
 import com.werefox.core_domain.repository.CatRepository
 import com.werefox.core_domain.uihelper.ResourceManager
@@ -19,6 +22,9 @@ import com.werefox.feature_catlist.output.CatListOutput
 import com.werefox.feature_favorites.output.FavoritesOutput
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -48,8 +54,9 @@ class ApplicationModule(private val context: Context) {
         catResponseToEntityCatMapper: CatResponseToEntityCatMapper,
         catFavoriteToEntityCatMapper: CatFavoriteToEntityCatMapper,
         catDao: CatDao,
+        catRetService: CatsApiService
     ): CatRepository =
-        CatRepositoryImpl(catResponseToEntityCatMapper, catFavoriteToEntityCatMapper, catDao)
+        CatRepositoryImpl(catResponseToEntityCatMapper, catFavoriteToEntityCatMapper, catDao, catRetService)
 
     @Provides
     @Singleton
@@ -75,4 +82,20 @@ class ApplicationModule(private val context: Context) {
     @Provides
     internal fun favoritesPartCoordinator(router: Router): FavoritesOutput =
         FavoritesPartCoordinator(router)
+
+    @Singleton
+    @Provides
+    internal fun getApiService(retrofit: Retrofit): CatsApiService =
+        retrofit.create(CatsApiService::class.java)
+
+
+    @Singleton
+    @Provides
+    internal fun getRetrofit(): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(API_URL)
+            .client(OkHttpClientFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
 }

@@ -12,6 +12,7 @@ import com.werefox.feature_catlist.R
 class CatItemAdapter(
     private val actionListener: CatItemActionListener,
     private val resourceManager: ResourceManager,
+    private val picasso: Picasso,
 ) :
     RecyclerView.Adapter<CatItemAdapter.ViewHolder>() {
 
@@ -43,12 +44,12 @@ class CatItemAdapter(
             }
             val text = "${resourceManager.getString(R.string.category_title)} $categoryText"
             tvCategory.text = text
-            Picasso.get().load(catItem.url).into(imageCatItem)
+            picasso.load(catItem.url).into(imageCatItem)
             btnAddToFavorite.setOnClickListener {
-                actionListener.onClickAddToFavorite(catItem, text)
+                actionListener.onClickAddToFavorite(catItem, categoryText)
             }
             btnDownload.setOnClickListener {
-                actionListener.onClickDownloadImage(imageCatItem.drawable, categoryText)
+                actionListener.onClickDownloadImage(imageCatItem.drawable, catItem.id)
             }
         }
     }
